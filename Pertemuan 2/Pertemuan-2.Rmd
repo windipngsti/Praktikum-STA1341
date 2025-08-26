@@ -512,10 +512,6 @@ akurasi2
 ```
 
 ```{r}
-head(resid1)
-```
-
-```{r}
 #Cara Manual
 # Alpha = 0.2
 fitted1<-ramalan1$fitted
@@ -781,9 +777,9 @@ points(testing.ts)
 
 Metode Holt-Winter untuk peramalan data musiman menggunakan tiga persamaan pemulusan yang terdiri atas persamaan untuk level $(L_t)$, trend $(B_t)$, dan komponen seasonal / musiman $(S_t)$ dengan parameter pemulusan berupa $\alpha$, $\beta$, dan $\gamma$. Metode Holt-Winter musiman terbagi menjadi dua, yaitu metode aditif dan metode multiplikatif. Perbedaan persamaan dan contoh datanya adalah sebagai berikut.
 
-![](images/Perbandingan%20model%20aditif.png){width="609"}
+![](images/clipboard-2239154957.png)
 
-![](images/example%20additive-multiplicative.png)
+![](images/clipboard-1209508415.png)
 
 Pemulusan data musiman dengan metode Winter dilakukan menggunakan fungsi `HoltWinters()` dengan memasukkan argumen tambahan, yaitu `gamma()` dan `seasonal()` . Arguman `seasonal()` diinisialisasi menyesuaikan jenis musiman, aditif atau multiplikatif.
 
@@ -870,6 +866,17 @@ SSEtesting1.opt<-sum(selisih1.opt^2)
 MSEtesting1.opt<-SSEtesting1.opt/length(testing.ts)
 ```
 
+```{r}
+akurasi_testing <- data.frame(
+  Model = c("Model1", "Model Optimum"),
+  SSE   = c(SSEtesting1, SSEtesting1.opt),
+  MSE   = c(MSEtesting1, MSEtesting1.opt)
+)
+
+akurasi_testing
+
+```
+
 ### Winter Multiplikatif
 
 Model multiplikatif digunakan cocok digunakan jika plot data asli menunjukkan fluktuasi musiman yang bervariasi.
@@ -951,3 +958,28 @@ selisih2.opt<-forecast2.opt-testing.ts
 SSEtesting2.opt<-sum(selisih2.opt^2)
 MSEtesting2.opt<-SSEtesting2.opt/length(testing.ts)
 ```
+
+```{r}
+# Atau rapikan dalam tabel
+akurasi_testing2 <- data.frame(
+  Model = c("Model2", "Model2 Optimal"),
+  SSE   = c(SSEtesting2, SSEtesting2.opt),
+  MSE   = c(MSEtesting2, MSEtesting2.opt)
+)
+
+akurasi_testing2
+```
+
+## Tugas 
+
+1.  Setiap kelompok memilih satu data time series dengan panjang ≥ 500 periode.
+
+2.  Data dibagi rata ke setiap anggota; minimal 100 observasi per orang.
+
+3.  Terapkan metode pemulusan yang sudah dipelajari (SMA, DMA, SES, DES, atau Holt-Winters) pada bagian data masing-masing
+
+4.  Bandingkan kinerja metode dan tentukan metode terbaik untuk data tersebut menggunakan metrik akurasi (mis. SSE/MSE/RMSE/MAPE), lalu jelaskan alasannya secara singkat.
+
+    Upload tugas per individu ke GitHub pada folder `Pertemuan-2` dengan format HTML bernama `Tugas-Pertemuan-2.html`.
+
+5.  Deadline Pengumpulan : **Senin, Jam 23.59 WIB**
